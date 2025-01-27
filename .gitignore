@@ -1,0 +1,34 @@
+# Ignorar archivos y carpetas de configuración y dependencias
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+
+# Ignorar archivos de entorno y configuración
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+
+# Ignorar configuraciones de Docker y Homestead
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+
+# Ignorar archivos de registro de npm y yarn
+npm-debug.log
+yarn-error.log
+
+# Ignorar configuraciones de IDEs y editores de código
+/.fleet
+/.idea
+/.vscode
+
+# Incluir assets específicos, ignorando otros archivos en public/assets
+!/public/assets
+!/public/assets/*
+/public/css
+/public/js

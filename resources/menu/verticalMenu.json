@@ -1,0 +1,72 @@
+{
+    "menu": [
+        {
+            "url": "/admin",
+            "name": "Principal",
+            "icon": "menu-icon tf-icons mdi mdi-home-outline",
+            "slug": "adm.home"
+        },
+        {
+            "name": "Propiedades",
+            "icon": "menu-icon tf-icons mdi mdi-home-modern",
+            "slug": ["adm.propiedades", "adm.propietarios"],
+            "submenu": [
+                {
+                    "url": "/admin/propiedades",
+                    "name": "Lista",
+                    "slug": "adm.propiedades.index"
+                },
+                {
+                    "url": "/admin/propiedades/agregar",
+                    "name": "Agregar",
+                    "slug": "adm.propiedades.agregar"
+                },
+                {
+                    "name": "Dueños",
+                    "slug": "adm.propietarios",
+                    "submenu": [
+                        {
+                            "url": "/admin/propietarios/lista",
+                            "name": "Lista",
+                            "slug": "adm.propietarios.index"
+                        },
+                        {
+                            "url": "/admin/propietarios/create",
+                            "name": "Agregar",
+                            "slug": "adm.propietarios.create"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Citas",
+            "icon": "menu-icon tf-icons mdi mdi-account-clock",
+            "slug": "adm.citas",
+            "submenu": [
+                {
+                    "url": "/admin/citas/lista",
+                    "name": "Lista",
+                    "slug": "adm.citas.index"
+                },
+                {
+                    "url": "/admin/citas/encuesta/graficas",
+                    "name": "Graficas",
+                    "slug": "adm.citas.encuesta.graficas"
+                }
+            ]
+        },
+        {
+            "url": "/admin/servicios/lista",
+            "icon": "menu-icon tf-icons mdi mdi-hammer-wrench",
+            "name": "Servicios",
+            "slug": "adm.servicios.index"
+        },
+        {
+            "url": "/admin/usuarios/administracion",
+            "name": "Usuarios",
+            "icon": "menu-icon tf-icons mdi mdi-account-wrench",
+            "slug": "adm.usuarios.administracion"
+        }
+    ]
+}

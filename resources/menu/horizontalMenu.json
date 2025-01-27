@@ -1,0 +1,23 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Home",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "pages-home"
+    },
+    {
+      "url": "/propiedades",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
+      "name": "Propiedades",
+      "slug": "propiedades.index"
+    },
+    {
+      "url": "/auth/login-basic",
+      "name": "Login",
+      "icon": "menu-icon tf-icons mdi mdi-login",
+      "slug": "auth-login-basic",
+      "target": "_blank"
+    }
+  ]
+}
