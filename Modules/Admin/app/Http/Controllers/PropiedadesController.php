@@ -342,7 +342,7 @@ class PropiedadesController extends Controller
         if (!$propiedad) {
             return redirect()->back()->with('error', 'No se encontró la propiedad');
         }
-        $imagen360 = Image::with('hotspots')->where('tipo', '360')->get();
+        $imagen360 = Image::with('hotspots')->where('tipo', '360')->where('id_propiedad', $id)->get();
         $visitas = Visita::obtenerTotalVisitas($id);
         return view('admin::propiedades.detalle_propiedad', compact('propiedad', 'visitas', 'imagen360'));
     }

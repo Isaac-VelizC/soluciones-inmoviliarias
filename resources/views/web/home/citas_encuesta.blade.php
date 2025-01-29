@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Soluciones Inmboliviarias - Encusta</title>
+    <title>Soluciones Inmboliviarias - Encuesta</title>
     <meta name="author" content="Realar">
     <meta name="description" content="Realar - Real Estate Apartment Complex HTML Template">
     <meta name="keywords" content="Realar - Real Estate Apartment Complex HTML Template">

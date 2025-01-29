@@ -197,5 +197,13 @@
     }
 });
 
+function VerEncuesta(id, idp) {
+        // Abre una nueva ventana con la URL especificada
+        var url = "{{ route('usuario.citas.encuesta') }}"+"/"+id+"/"+idp;
+        var nombre = "Encuesta";
+        var caracteristicas = "width=800,height=600";
+        window.open(url, nombre, caracteristicas);
+    }
+
 </script>
 @endsection
