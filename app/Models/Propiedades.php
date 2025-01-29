@@ -18,6 +18,10 @@ class Propiedades extends Model
         'descripcion', 'precio', 'moneda', 'estatus', 'fecha_listado', 'fecha_final',
         'id_propietario','latitud','longitud', 'id_user', 'publicidad_estado'
     ];
+
+    public function solicitudes() {
+        return $this->hasMany(SolicitudServicio::class, 'id_propiedad');
+    }
     
     public function tipoPropiedad() {
         return $this->belongsTo(PropiedadesTipo::class, 'tipo_propiedad');

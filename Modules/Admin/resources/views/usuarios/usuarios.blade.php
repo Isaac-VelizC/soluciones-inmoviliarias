@@ -157,6 +157,11 @@
                     <label for="add-user-fullname">Nombre Completo</label>
                 </div>
                 <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="name"
+                        aria-label="Doe" />
+                    <label for="add-user-fullname">Apellido</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
                     <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com"
                         aria-label="john.doe@example.com" name="email" />
                     <label for="add-user-email">Email</label>
@@ -167,16 +172,9 @@
                     <label for="add-user-contact">Contacto</label>
                 </div>
                 <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" id="add-user-company" name="company" class="form-control"
-                        placeholder="Web Developer" aria-label="jdoe1" />
-                    <label for="add-user-company">Compañia</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
                     <select id="country" class="select2 form-select">
                         <option value="">Select</option>
                         <option value="Australia">Australia</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Belarus">Belarus</option>
                         <option value="Bolivia">Bolivia</option>
                         <option value="Brazil">Brazil</option>
                         <option value="Canada">Canada</option>
@@ -190,11 +188,7 @@
                         <option value="Japan">Japan</option>
                         <option value="Korea">Korea, Republic of</option>
                         <option value="Mexico">Mexico</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Russia">Russian Federation</option>
                         <option value="South Africa">South Africa</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Turkey">Turkey</option>
                         <option value="Ukraine">Ukraine</option>
                         <option value="United Arab Emirates">United Arab Emirates</option>
                         <option value="United Kingdom">United Kingdom</option>
@@ -204,10 +198,7 @@
                 </div>
                 <div class="form-floating form-floating-outline mb-4">
                     <select id="user-role" class="form-select">
-                        <option value="subscriber">Subscriber</option>
-                        <option value="editor">Editor</option>
-                        <option value="maintainer">Maintainer</option>
-                        <option value="author">Author</option>
+                        <option value="agente">Agente</option>
                         <option value="admin">Admin</option>
                     </select>
                     <label for="user-role">Role</label>

@@ -8,9 +8,12 @@ use App\Models\Pregunta;
 use App\Models\Propiedades;
 use App\Models\Respuesta;
 use App\Models\Servicio;
+use App\Models\ServiciosTipo;
 use App\Models\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,8 +57,31 @@ class CitaController extends Controller
         $citas = Cita::with('propiedad')->where('usuario_id', auth()->id())->get();
         $propiedad = Propiedades::findOrFail($id);
         $controlCitaPropiedad = Cita::getCitasControlByPropiedad($id);
+        $ultimaCita = Cita::with('propiedad')
+            ->where('id_propiedad', $id)
+            ->where('usuario_id', auth()->id())
+            ->where('estado', 'pendiente') // Filtrar solo citas pendientes
+            ->orderBy('created_at', 'desc') // Ordenar de la más reciente a la más antigua
+            ->first(); // Obtener solo la última
+        return view('web.home.citas', [
+            'propiedad' => $propiedad,
+            'citas' => $citas,
+            'id' => $id,
+            'meses' => $meses,
+            'smes' => $mes,
+            'dias' => $diasHabiles,
+            'sdia' => $dia,
+            'horas' => $horas,
+            'controlpropiedad' => $controlCitaPropiedad,
+            'ultimaCita' => $ultimaCita
+        ]);
+    }
 
-        return view('web.home.citas', ['propiedad' => $propiedad, 'citas' => $citas, 'id' => $id, 'meses' => $meses, 'smes' => $mes, 'dias' => $diasHabiles, 'sdia' => $dia, 'horas' => $horas, 'controlpropiedad' => $controlCitaPropiedad]);
+    public function all_citas_user()
+    {
+        $citas = Cita::where('usuario_id', auth()->id())->get();
+        // Devuelves las citas en formato JSON, junto con un mensaje de éxito
+        return response()->json(['status' => 'success', 'data' => $citas]);
     }
 
     public function encuesta($cita, $prop)
@@ -174,14 +200,16 @@ class CitaController extends Controller
     public function servicios()
     {
         $user = auth()->user();
-        $servicios = Servicio::with(['usuario.client','tipoServicio'])->where('id_usuario', $user->id)->get();
+        $servicios = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_usuario', $user->id)->get();
         return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios]);
     }
 
-    public function serviciosPorPropiedad($id) {
+    public function serviciosPorPropiedad($id)
+    {
+        $tipoServicio = ServiciosTipo::all();
         $user = auth()->user();
-        $servicios = Servicio::with(['usuario.client','tipoServicio'])->where('id_usuario', $user->id)->where('id_propiedad', $id)->get();
-        return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios]);
+        $servicios = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_usuario', $user->id)->where('id_propiedad', $id)->get();
+        return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios, 'tipoServicio' => $tipoServicio, 'idPropiedad' => $id]);
     }
 
     public function store(Request $request)
@@ -191,15 +219,36 @@ class CitaController extends Controller
             'id_propiedad' => 'required|integer',
             'fecha_de_cita' => 'required|date|after_or_equal:today',
             'hora_de_cita' => 'required|date_format:H:i'
-
         ]);
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        // Obtener la fecha actual y agregar un día
+        $fechaActual = Carbon::now();
+        $fechaLimite = $fechaActual->addDay()->startOfDay(); // Asegura que sea a partir de mañana
+
+        // Verificar si la fecha_de_cita es al menos un día después de la fecha actual
+        if (Carbon::parse($request->fecha_de_cita)->isBefore($fechaLimite)) {
+            return redirect()->back()->with('error', 'La fecha de la cita debe ser al menos un día después de hoy.');
+        }
+
+        // Verificar si ya existe una cita para la misma fecha y hora
+        $existeCita = Cita::where('fecha_de_cita', $request->fecha_de_cita)
+
+            ->where('usuario_id', $request->usuario_id)
+            ->exists();
+
+        // Si existe una cita, retornar con un error
+        if ($existeCita) {
+            return redirect()->back()->with('error', 'Ya existe una cita para esta fecha y hora. Intenta con otra.');
+        }
+
         Cita::create($request->all());
-        return redirect()->route('propiedades.detalle', $request->id_propiedad)->with('success', 'Cita guardado exitosamente.');
+        return redirect()->route('propiedades.detalle', $request->id_propiedad)
+            ->with('success', 'Cita guardada exitosamente.');
     }
 
     public function show(string $id)
@@ -267,7 +316,7 @@ class CitaController extends Controller
     {
         $times = [];
         $startTimes = ['08:00', '14:00'];
-        $endTimes = ['11:30', '17:30'];
+        $endTimes = ['11:30', '18:00'];
 
         // Convertimos la fecha correctamente
         $fecha_original = sprintf('%04d-%02d-%02d', $anio, $mes, $dia);
@@ -286,11 +335,11 @@ class CitaController extends Controller
                 $horaActual = new DateTime();
                 $horaCita = new DateTime($sHora);
                 $control2 = true;
-                if ($anio == date('Y') && $mes == date('m') && (int)$dia == (int)date('d')) {
+                /*if ($anio == date('Y') && $mes == date('m') && (int)$dia == (int)date('d')) {
                     if ($horaCita <= $horaActual) {
                         $control2 = false;
                     }
-                }
+                }*/
                 // Solo agregamos si no hay cita y la hora es válida
                 if (empty($control) && $control2) {
                     $times[] = $sHora;

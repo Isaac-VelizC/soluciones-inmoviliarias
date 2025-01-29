@@ -134,12 +134,6 @@
                         </a>
                     </li>
                     @auth
-                    <li>
-                        <a href="{{ route('usuario.servicios.index') }}">
-                            Mis Servicios
-                        </a>
-                    </li>
-                    @auth
                     @role('admin')
                     <li>
                         <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
@@ -147,7 +141,6 @@
                         </a>
                     </li>
                     @endrole
-                    @endauth
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -263,12 +256,6 @@
                                         </a>
                                     </li>
                                     @auth
-                                    <li>
-                                        <a href="{{ route('usuario.servicios.index') }}">
-                                            Mis Servicios
-                                        </a>
-                                    </li>
-                                    @auth
                                     @role('admin')
                                     <li>
                                         <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
@@ -276,7 +263,6 @@
                                         </a>
                                     </li>
                                     @endrole
-                                    @endauth
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -425,6 +411,7 @@
 
     <!-- Main Js File -->
     <script src="/web/assets/js/main.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

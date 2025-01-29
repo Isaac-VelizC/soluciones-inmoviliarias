@@ -24,17 +24,30 @@ Hero Area
                             <div class="col-lg-8">
                                 <div class="hero-style1">
                                     <h1 class="hero-title text-white">
-                                        <span class="title1" data-ani="slideindown" data-ani-delay="0.3s">
-                                            {{ $ultimaPublicitada->nombre ?? 'Espacio habitable' }}</span>
-                                        <span class="title2 text-lg" data-ani="slideindown" data-ani-delay="0.4s">
-                                            {{ $imagen->tipo ?? 'Cuartos' }}</span>
+                                        <span class="title1" data-ani="slideindown" data-ani-delay="0.3s">Propiedad en {{ $ultimaPublicitada->ciudad }}</span>
                                     </h1>
-                                    <p class="hero-text text-white" data-ani="slideinup" data-ani-delay="0.5s">
-                                        {{ $ultimaPublicitada->descripcion ?? 'Reuniendo un equipo con pasión,
-                                        dedicación y recursos para ayudar a nuestros clientes a alcanzar sus objetivos
-                                        de compra y venta.' }}
-                                    </p>
-                                    <a href="{{ route('propiedades.detalle', $ultimaPublicitada->id) }}" class="th-btn btn-mask th-btn-icon" data-ani="slideinup"
+                                    <div class="col-8">
+                                        <div class="card" style="background-color: rgba(128, 128, 128, 0.5); rounde-radius: 15px;"
+                                            data-ani="slideinup" data-ani-delay="0.5s">
+                                            <div class="card-body">
+                                                <h5 style="color: #071d88" data-ani="slideindown" data-ani-delay="0.4s">
+                                                    {{ $ultimaPublicitada->precio. ' '.$ultimaPublicitada->moneda }}
+                                                </h5>
+                                                <p class=" text-white">🌍 {{ $ultimaPublicitada->direccion }}</p>
+                                                <p class="card-text text-white">
+                                                    {{ "Ambientes: " . $ultimaPublicitada->num_habitaciones }} -
+                                                    {{ "Baños: " . $ultimaPublicitada->num_banos }} -
+                                                    {{ "Garaje: " . $ultimaPublicitada->num_garajes }} -
+                                                    {{ "Cocina: " . $ultimaPublicitada->num_cocinas }} -
+                                                    {{ "Dormitorio: " . $ultimaPublicitada->num_dormitorios }} -
+                                                    {{ "Sala: " . $ultimaPublicitada->num_salas }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <a href="{{ route('propiedades.detalle', $ultimaPublicitada->id) }}"
+                                        class="th-btn btn-mask th-btn-icon" data-ani="slideinup"
                                         data-ani-delay="0.6s">Propiedades en venta</a>
                                 </div>
                             </div>
@@ -61,11 +74,11 @@ Hero Area
                     </p>
                 </div>
             </div>
-            <div class="col-lg-auto">
+            <!--div-- class="col-lg-auto">
                 <div class="sec-btn">
                     <a href="{{ route('nosotros.index') }}" class="th-btn btn-mask th-btn-icon">Ver Más</a>
                 </div>
-            </div>
+            </!--div-->
         </div>
         <div class="py-3 py-md-5">
             <div class="container">
@@ -126,17 +139,17 @@ Hero Area
                 <div class="col-xl-4">
                     <div class="project-title-wrap1">
                         <div class="title-area mb-40">
-                            <span class="shadow-title">RESIDENCIAS</span>
-                            <h4 class="sec-title text-white">Descubre Tu Nuevo Hogar en Nuestras Residencias Disponibles
+                            <span class="shadow-title">PROPIEDADES</span>
+                            <h4 class="sec-title text-white">Descubre Tu Nuevo Hogar en Nuestras Propiedades Disponibles
                             </h4>
                             <p class="sec-text fs-5 text-white mt-15">
-                                Disfruta de un estilo de vida moderno y sostenible. Nuestras residencias están diseñadas
+                                Disfruta de un estilo de vida moderno y sostenible. Nuestras Propiedades están diseñadas
                                 para maximizar la luz natural y cuentan con paneles solares que reducen tu huella
                                 ecológica.
                             </p>
                             <div class="btn-wrap mt-20">
                                 <a href="{{ route('propiedades.index') }}" class="th-btn btn-mask th-btn-icon">Ver
-                                    Residencias</a>
+                                    Propiedades</a>
                             </div>
                         </div>
                     </div>

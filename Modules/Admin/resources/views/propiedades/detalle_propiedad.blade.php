@@ -65,7 +65,10 @@
             </p>
         </div>
         <div class="d-flex align-content-center flex-wrap gap-3">
-            <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}" class="btn btn-md btn-outline-primary">Registrar Servicio</a>
+            <a href="{{ route('adm.servicio.solicitud', $propiedad->id ) }}"
+                class="btn btn-md btn-outline-primary">Solicitudes</a>
+            <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}"
+                class="btn btn-md btn-outline-primary">Servicio</a>
             <a href="{{ route('adm.subir.imagenes', $propiedad->id ) }}" class="btn btn-outline-secondary">Imagenes</a>
             <a href="{{ route('adm.propiedades.editar', $propiedad->id) }}" id="submitBtn"
                 class="btn btn-primary">Editar</a>

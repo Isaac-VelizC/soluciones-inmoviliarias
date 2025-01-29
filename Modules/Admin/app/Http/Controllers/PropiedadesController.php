@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 //use Illuminate\Support\Facades\Validator;
 use App\Models\Propietario;
+use App\Models\SolicitudServicio;
 use App\Models\Visita;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +73,6 @@ class PropiedadesController extends Controller
                 'message' => 'Propiedad no encontrada',
             ], 404);
         }
-
         $ciudades = $this->obtenerCiudades();
         $tipopropiedad = PropiedadesTipo::getTodo();
         $ventastipo = VentasTipo::getTodo();
@@ -190,7 +190,7 @@ class PropiedadesController extends Controller
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:1',
             'moneda' => 'required|string|max:6',
-            'financiamiento_bancario' => 'nullable||numeric|min:1',
+            'financiamiento_bancario' => 'nullable|string|in:Si,No',
             'estatus' => 'required|string|max:50',
             'fecha_listado' => 'required|date|after_or_equal:today',
             'fecha_final' => 'required|date|after_or_equal:fecha_listado',
@@ -252,7 +252,7 @@ class PropiedadesController extends Controller
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:1',
             'moneda' => 'required|string|max:6',
-            'financiamiento_bancario' => 'nullable||numeric|min:1',
+            'financiamiento_bancario' => 'nullable|string|in:Si,No',
             'estatus' => 'required|string|max:50',
             'fecha_listado' => 'required|date|after_or_equal:today',
             'fecha_final' => 'required|date|after_or_equal:fecha_listado',
@@ -355,5 +355,11 @@ class PropiedadesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function lista_solicitudes($id) {
+        $propiedad = Propiedades::findOrFail($id);
+        $lista = SolicitudServicio::with(['tipoServicio', 'usuario.client'])->where('id_propiedad', $id)->get();
+        return view('admin::propiedades.solicitudes', compact('lista', 'propiedad'));
     }
 }

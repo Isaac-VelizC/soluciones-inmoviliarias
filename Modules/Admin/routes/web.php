@@ -46,12 +46,15 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::post('/propiedades/tipo/store', [PropiedadesController::class, 'tipo_agregar'])->name('adm.propiedades.tipo.store');
         Route::post('/propiedades/ventatipo/store', [PropiedadesController::class, 'venta_tipo_agregar'])->name('adm.propiedades.ventatipo.store');
         //servicios
+        Route::get('/servicios/lista/solicitudes/{id}', [PropiedadesController::class, 'lista_solicitudes'])->name('adm.servicio.solicitud');
         Route::get('/servicios/lista', [ServicioController::class, 'index'])->name('adm.servicios.index');
+        Route::get('/servicios/show/{id}', [ServicioController::class, 'show'])->name('adm.servicios.show');
         Route::get('/servicios/seguimiento/{id?}', [ServicioController::class, 'seguimiento'])->name('adm.servicios.seguimiento');
         Route::get('/servicios/lista/ajax', [ServicioController::class, 'ajax_servicios'])->name('adm.servicios.ajax.index');
         //
         Route::get('/servicios/agregar/{id?}', [ServicioController::class, 'agregar'])->name('adm.servicios.agregar');
         Route::post('/servicios/agregar_nuevo', [ServicioController::class, 'store'])->name('adm.servicios.agregar_nuevo');
+        Route::post('/servicios/agregar_imagen', [ServicioController::class, 'store_imagen_servicio'])->name('adm.servicios.agregar_imagen');
         //
         Route::get('/servicios/editar/{id?}', [ServicioController::class, 'edit'])->name('adm.servicios.editar');
         Route::post('/servicios/editar_existente', [ServicioController::class, 'update'])->name('adm.servicios.editar_existente');

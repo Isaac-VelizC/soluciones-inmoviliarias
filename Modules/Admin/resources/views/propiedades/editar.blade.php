@@ -244,7 +244,7 @@
         <div class="d-flex align-content-center flex-wrap gap-3">
             {{-- <button type="button" onclick="abrirServicios();"
                 class="btn btn-outline-secondary">Servicios</button>--}}
-                <a href="{{ route('adm.subir.imagenes', $propiedad->id ) }}" class="btn btn-outline-secondary">Imagenes</a>
+            <a href="{{ route('adm.subir.imagenes', $propiedad->id ) }}" class="btn btn-outline-secondary">Imagenes</a>
             <button type="button" onclick="abrirCitas();" class="btn btn-outline-primary">Citas</button>
             <button type="button" onclick="editarInmueble();" id="submitBtn" class="btn btn-primary">Actualizar</button>
         </div>
@@ -289,14 +289,14 @@
                         </div>
                         <div class="row">
                             <div class="form-floating form-floating-outline mb-4 col-12 col-md-6">
-                                <input type="text" class="form-control" id="latitud" placeholder="latitud" name="latitud"
-                                    aria-label="Latitud" value="{{ $propiedad->latitud }}" disabled>
+                                <input type="text" class="form-control" id="latitud" placeholder="latitud"
+                                    name="latitud" aria-label="Latitud" value="{{ $propiedad->latitud }}" disabled>
                                 <div class="invalid-feedback" id="error-latitud"></div>
                                 <label for="latitud">Latitud</label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4 col-12 col-md-6">
-                                <input type="text" class="form-control" id="longitud" placeholder="Longitud" name="longitud"
-                                    aria-label="Longitud" value="{{ $propiedad->longitud }}" disabled>
+                                <input type="text" class="form-control" id="longitud" placeholder="Longitud"
+                                    name="longitud" aria-label="Longitud" value="{{ $propiedad->longitud }}" disabled>
                                 <div class="invalid-feedback" id="error-longitud"></div>
                                 <label for="longitud">Longitud</label>
                             </div>
@@ -376,8 +376,9 @@
                         <div>
                             <label class="form-label">Descripción</label>
                             <textarea class="form-control p-2 pt-1" id="descripcion" name="descripcion"
-                                placeholder="Descripción corta de la propiedad" rows="6">{{ $propiedad->descripcion }}</textarea>
-                                <div class="invalid-feedback" id="error-descripcion"></div>
+                                placeholder="Descripción corta de la propiedad"
+                                rows="6">{{ $propiedad->descripcion }}</textarea>
+                            <div class="invalid-feedback" id="error-descripcion"></div>
                         </div>
                     </form>
                 </div>
@@ -397,13 +398,14 @@
                             <div class="col-md-6">
                                 <label class="form-label">Seleccionar Tipo de Imagen</label>
                                 <select id="tipo" name="tipo" class="form-select">
-                                    <option value="casa_fuera">Casa por fuera</option>
+                                    <option value="casa_fuera">Propiedad</option>
                                     <option value="360">Imagenes 360</option>
-                                    <option value="cuarto">Cuartos</option>
-                                    <option value="dormitorio">Dormitorios</option>
-                                    <option value="cocina">Cocinas</option>
+                                    <option value="dormitorio">Dormitorio</option>
+                                    <option value="sala">Sala</option>
                                     <option value="baños">Baños</option>
+                                    <option value="cocina">Cocinas</option>
                                     <option value="garaje">Garaje</option>
+                                    <option value="ambiente">Ambiente</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -428,8 +430,8 @@
                         <div class="col-md-4 mb-3">
                             <div class="card">
                                 <img class="card-img-top"
-                                    src="{{ route('adm.propiedades.imagenes.showImage', $imagen->id) }}"
-                                    alt="Imagen" height={{ 120 }}>
+                                    src="{{ route('adm.propiedades.imagenes.showImage', $imagen->id) }}" alt="Imagen"
+                                    height={{ 120 }}>
                                 <div class="card-body d-flex justify-content-between">
                                     <h5 class="card-title">{{ ucfirst($imagen->tipo) }}</h5>
                                     <form action="{{ route('adm.propiedades.imagenes.destroy', $imagen->id) }}"
@@ -469,16 +471,24 @@
                         <!-- Discounted Price -->
                         <div class="form-floating form-floating-outline mb-4">
                             <select class="form-select" id="moneda" name="moneda" aria-label="Default select example">
-                                <option value="USD">Dolar</option>
-                                <option value="Bs">Bolivianos</option>
+                                <option value="" disabled {{ is_null($propiedad->moneda) ? 'selected' : '' }}>Seleccione
+                                    una opción</option>
+                                <option value="USD" {{ $propiedad->moneda == 'USD' ? 'selected' : '' }}>Dolar</option>
+                                <option value="Bs" {{ $propiedad->moneda == 'Bs' ? 'selected' : '' }}>Bolivianos
+                                </option>
                             </select>
                             <label for="exampleFormControlSelect1">Moneda</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="number" class="form-control" id="financiamiento_bancario" min="0"
-                                placeholder="Financiamiento Bancario" name="financiamiento_bancario" aria-label="Precio"
-                                value="{{ $propiedad->financiamiento_bancario }}">
-                            <div class="invalid-feedback" id="error-financiamiento_bancario"></div>
+                            <select class="form-select" id="financiamiento_bancario" name="financiamiento_bancario"
+                                aria-label="Financiamiento Bancario">
+                                <option value="" disabled {{ is_null($propiedad->financiamiento_bancario) ? 'selected' :
+                                    '' }}>Seleccione una opción</option>
+                                <option value="No" {{ $propiedad->financiamiento_bancario == 'No' ? 'selected' : ''
+                                    }}>No</option>
+                                <option value="Si" {{ $propiedad->financiamiento_bancario == 'Si' ? 'selected' : ''
+                                    }}>Sí</option>
+                            </select>
                             <label for="financiamiento_bancario">Financiamiento Bancario</label>
                         </div>
                         <!-- Instock switch -->
@@ -540,7 +550,8 @@
                                 <label for="vendor">Tipo de Propiedad</label>
                             </div>
                             <div>
-                                <button onclick="abrirTipo(event)" class="btn btn-outline-primary btn-icon btn-lg h-px-50">
+                                <button onclick="abrirTipo(event)"
+                                    class="btn btn-outline-primary btn-icon btn-lg h-px-50">
                                     <i class="mdi mdi-plus"></i>
                                 </button>
                             </div>

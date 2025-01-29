@@ -11,20 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicios', function (Blueprint $table) {
+        Schema::create('solicitud_servicios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_cliente', 100)->nullable();
-            $table->string('direccion', 255);
-            $table->text('servicios_detalle')->nullable();
-            $table->string('nombre_trabajador', 100)->nullable();
             $table->text('descripcion');
+            $table->text('servicios_detalle')->nullable();
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->string('prueba')->nullable();
-            $table->decimal('precio', 10, 5)->default(0);
             $table->string('estado', 50)->default('pendiente');
-            $table->unsignedBigInteger('id_solicitud_servicio')->nullable();
-            $table->foreign('id_solicitud_servicio')->references('id')->on('solicitud_servicios')->onDelete('cascade');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('tipo_de_servicio');
@@ -40,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicios');
+        Schema::dropIfExists('solicitud_servicios');
     }
 };

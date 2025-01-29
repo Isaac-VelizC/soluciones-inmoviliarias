@@ -21,7 +21,7 @@
 </div>
 <style>
     .selected-day {
-        background-color: #4CAF50 !important;
+        background-color: #8ee091 !important;
         color: white !important;
     }
 </style>
@@ -34,6 +34,12 @@
         <div class="woocommerce-form-login-toggle">
             <div class="woocommerce-info">Horarios de atencion: 8:00 a 12:00 y 14:00 a 18:00</div>
         </div>
+        @if(session('error'))
+        <div class="alert alert-danger">
+            <strong>Errores:</strong>
+            {{ session('error') }}
+        </div>
+        @endif
         @if(empty($controlpropiedad))
         <div class="row">
             <div class="col-12">
@@ -72,6 +78,19 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="alert alert-warning border-left border-warning shadow-sm p-3 rounded">
+            <h5 class="fw-bold">📅 Cita Pendiente</h5>
+            <p>
+                Tienes una cita pendiente programada para el
+                <span class="fw-bold">{{ $ultimaCita->fecha_de_cita }}</span>
+                a las
+                <span class="fw-bold">{{ $ultimaCita->hora_de_cita }}</span>
+                en la propiedad <strong>{{ $ultimaCita->propiedad->nombre }}</strong>.
+            </p>
+            <p class="mb-0">No podrás realizar otra cita para esta propiedad hasta que la actual se complete.</p>
+        </div>
+
         @endif
         <h4 class="mt-4 pt-lg-2">Tus Citas</h4>
         <form action="#" class="woocommerce-cart-form">
@@ -114,66 +133,69 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let calendarEl = document.getElementById('calendar');
-        let today = new Date();
-        let todayStr = today.toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
+    let calendarEl = document.getElementById('calendar');
+    let today = new Date();
+    let todayStr = today.toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
 
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: 'es',
-            initialView: 'dayGridMonth',
-            selectable: true,
-            editable: false,
-            events: '/citas',
-            dateClick: function(info) {
-                let selectedDate = info.dateStr;
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'es',
+        initialView: 'dayGridMonth',
+        selectable: true,
+        editable: false,
+        events: '/usuario/citas/todos', // Aquí será la URL para obtener las citas
+        dateClick: function(info) {
+            let selectedDate = info.dateStr;
+            if (selectedDate < todayStr) {
+                alert("No puedes seleccionar una fecha pasada.");
+                return;
+            }
 
-                if (selectedDate < todayStr) {
-                    alert("No puedes seleccionar una fecha pasada.");
-                    return;
-                }
+            // Actualizar el valor del campo input para enviar la fecha al formulario
+            document.getElementById('fecha_de_cita').value = selectedDate;
 
-                alert("Has seleccionado: " + selectedDate);
+            // Agregar una clase a la fecha seleccionada
+            document.querySelectorAll('.fc-day').forEach(function(day) {
+                day.classList.remove('selected-day'); // Eliminar clase de fecha previamente seleccionada
+            });
 
-                // Actualizar el valor del campo input para enviar la fecha al formulario
-                document.getElementById('fecha_de_cita').value = selectedDate;
-
-                // Agregar una clase a la fecha seleccionada
-                document.querySelectorAll('.fc-day').forEach(function(day) {
-                    day.classList.remove('selected-day'); // Eliminar clase de fecha previamente seleccionada
-                });
-
-                let selectedDateElement = document.querySelector(`[data-date="${selectedDate}"]`);
-                if (selectedDateElement) {
-                    selectedDateElement.classList.add('selected-day');
-                }
-            },
-            select: {
-                start: todayStr,
-                end: todayStr,
-                allDay: true
-            },
-            events: function(info, successCallback, failureCallback) {
-                // Esto se puede personalizar si es necesario para mostrar eventos
-            },
-            // Configuración de diseño
-            contentHeight: 'auto',
-            eventLimit: true,
-        });
-
-        calendar.render();
-
-        // Cambiar color de la fecha actual
-        let currentDateElement = document.querySelector(`[data-date="${todayStr}"]`);
-        if (currentDateElement) {
-            currentDateElement.style.backgroundColor = "red";
-            currentDateElement.style.color = "white";
-        }
+            let selectedDateElement = document.querySelector(`[data-date="${selectedDate}"]`);
+            if (selectedDateElement) {
+                selectedDateElement.classList.add('selected-day');
+            }
+        },
+        select: {
+            start: todayStr,
+            end: todayStr,
+            allDay: true
+        },
+        events: function(info, successCallback, failureCallback) {
+            // Los eventos se reciben como datos JSON
+            fetch('/usuario/citas/todos') // Solicitar las citas
+                .then(response => response.json())
+                .then(data => {
+                    const events = data.data.map(cita => ({
+                        title: `Cita: ${cita.fecha_de_cita} ${cita.hora_de_cita}`,
+                        start: cita.fecha_de_cita, // Fecha de la cita
+                        description: cita.descripcion,
+                    }));
+                    successCallback(events); // Llamar a la función de éxito con los eventos
+                })
+                .catch(failureCallback); // Si ocurre algún error, llamar a failureCallback
+        },
+        // Configuración de diseño
+        contentHeight: 'auto',
+        eventLimit: true,
     });
-    function VerEncuesta(id, idp) {
-        var url = "{{ route('usuario.citas.encuesta') }}"+"/"+id+"/"+idp;
-        var nombre = "Encuesta";
-        var caracteristicas = "width=800,height=600";
-        window.open(url, nombre, caracteristicas);
+
+    calendar.render();
+
+    // Cambiar color de la fecha actual
+    let currentDateElement = document.querySelector(`[data-date="${todayStr}"]`);
+    if (currentDateElement) {
+        currentDateElement.style.backgroundColor = "#8297dc";
+        currentDateElement.style.color = "white";
     }
+});
+
 </script>
 @endsection

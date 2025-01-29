@@ -67,4 +67,15 @@ class Servicio extends Model
         return $this->belongsTo(ServiciosTipo::class, 'tipo_de_servicio');
     }
 
+    public function imagenes() {
+        return $this->hasMany(ImagenServicio::class, 'id_servicio');
+    }
+
+    public function solicitud() {
+        return $this->belongsTo(SolicitudServicio::class, '');
+    }
+
+    public function propiedad() {
+        return $this->belongsTo(Propiedades::class, 'id_propiedad');
+    }
 }

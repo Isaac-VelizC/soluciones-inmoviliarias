@@ -27,7 +27,6 @@ class Cita extends Model
     public function propiedad() {
         return $this->belongsTo(Propiedades::class, 'id_propiedad');
     }
-
     
     public static function getCitasByPropiedad2($id)
     {

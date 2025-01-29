@@ -417,10 +417,11 @@
                             <label for="exampleFormControlSelect1">Moneda</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="number" class="form-control" id="financiamiento_bancario" min="0"
-                                placeholder="Financiamiento Bancario" name="financiamiento_bancario"
-                                aria-label="Precio">
                             <div class="invalid-feedback" id="error-financiamiento_bancario"></div>
+                            <select class="form-select" id="financiamiento_bancario" name="financiamiento_bancario" aria-label="Default select example">
+                                <option value="No">No</option>
+                                <option value="Si">Sí</option>
+                            </select>
                             <label for="financiamiento_bancario">Financiamiento Bancario</label>
                         </div>
                         <!-- Instock switch -->

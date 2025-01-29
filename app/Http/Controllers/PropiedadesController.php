@@ -7,10 +7,12 @@ use App\Models\Propiedades;
 use App\Models\PropiedadesTipo;
 use App\Models\Visita;
 use Illuminate\Http\Request;
+use Jorenvh\Share\Share;
 
 class PropiedadesController extends Controller
 {
-    private function ciudadesBolivia() {
+    private function ciudadesBolivia()
+    {
         return [
             "La Paz" => "La Paz",
             "Chuquisaca" => "Sucre",
@@ -32,21 +34,32 @@ class PropiedadesController extends Controller
     }
     public function detalle(Request $request, $id)
     {
+
         $imagenes = Image::where('id_propiedad', $id)->where('tipo', '<>', '360')->get();
         $imagenCasa = Image::where('id_propiedad', $id)->where('tipo', 'casa_fuera')->first();
         $imagen360 = Image::with('hotspots')->where('id_propiedad', $id)->where('tipo', '=', '360')->get();
         $propiedad = Propiedades::with('tipoPropiedad')->findOrFail($id);
         //Contar visitas
         $ip = $request->ip();
+        $url = url("/propiedades/detalle/{$propiedad->id}");
+        $title = 'Hola mundo';
+        $price = number_format($propiedad->precio, 2);
+        $message = "🏡 ¡Mira esta propiedad en venta! {$title} por \${$price}. Más detalles aquí: ";
+
+        $shareLinks = [
+            'facebook' => "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url),
+        ];
         // Registrar visita
         Visita::registrarVisita($id, $ip);
         return view('web.home.propiedades_detalle', [
             'propiedad' => $propiedad,
             'imagenes' => $imagenes,
             'imagen360' => $imagen360,
-            'imagenCasa' => $imagenCasa
+            'imagenCasa' => $imagenCasa,
+            'shareLinks' => $shareLinks
         ]);
     }
+
     public function panorama($id)
     {
         $propiedad = Propiedades::getPropiedad($id)[0];
@@ -70,7 +83,7 @@ class PropiedadesController extends Controller
                 return $q->where('ciudad', $ciudad);
             })
             ->get();
-            
+
         $tipos = PropiedadesTipo::all();
         $ciudades = $this->ciudadesBolivia();
         // Retorna una vista parcial con los resultados

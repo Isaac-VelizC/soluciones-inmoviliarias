@@ -132,20 +132,13 @@
                         </a>
                     </li>
                     @auth
-                        <li>
-                            <a href="{{ route('usuario.servicios.index') }}">
-                                Mis Servicios
-                            </a>
-                        </li>
-                        @auth
-                        @role('admin')
-                        <li>
-                            <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
-                                Administración
-                            </a>
-                        </li>
-                        @endrole
-                    @endauth
+                    @role('admin')
+                    <li>
+                        <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
+                            Administración
+                        </a>
+                    </li>
+                    @endrole
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -260,13 +253,6 @@
                                             Nosotros
                                         </a>
                                     </li>
-                                    @auth
-                                        <li>
-                                            <a href="{{ route('usuario.servicios.index') }}">
-                                                Mis Servicios
-                                            </a>
-                                        </li>
-                                    @endauth
                                     @auth
                                     @role('admin')
                                     <li>

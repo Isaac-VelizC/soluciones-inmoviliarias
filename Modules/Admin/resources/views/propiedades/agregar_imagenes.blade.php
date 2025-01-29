@@ -103,13 +103,14 @@
                                 <div class="col-md-6">
                                     <label class="form-label">Seleccionar Tipo de Imagen</label>
                                     <select id="tipo" name="tipo" class="form-select">
-                                        <option value="casa_fuera">Casa por fuera</option>
+                                        <option value="casa_fuera">Propiedad</option>
                                         <option value="360">Imagenes 360</option>
-                                        <option value="cuarto">Cuartos</option>
-                                        <option value="dormitorio">Dormitorios</option>
-                                        <option value="cocina">Cocinas</option>
+                                        <option value="dormitorio">Dormitorio</option>
+                                        <option value="sala">Sala</option>
                                         <option value="baños">Baños</option>
+                                        <option value="cocina">Cocinas</option>
                                         <option value="garaje">Garaje</option>
+                                        <option value="ambiente">Ambiente</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">

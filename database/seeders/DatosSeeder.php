@@ -66,7 +66,7 @@ class DatosSeeder extends Seeder
         ]);
         
         User::create([
-            'name' => 'Isaac Veliz',
+            'name' => 'Rachel Starr',
             'email' => 'isa.veliz@gmail.com',
             'password' => bcrypt('IsaacVelizAdmin'),
             'phone' => '43648545',

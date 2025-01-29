@@ -62,6 +62,35 @@ $og_img = route('propiedades.imagenes.ver', $imagenes[0]->id);
         transition: transform 0.3s ease-in-out;
     }
 </style>
+<style>
+    /* From Uiverse.io by david-mohseni */
+    .wrapper {
+        display: inline-flex;
+        list-style: none;
+        height: 120px;
+        width: 100%;
+        padding-top: 40px;
+        font-family: "Poppins", sans-serif;
+        justify-content: center;
+    }
+
+    .wrapper .icon {
+        position: relative;
+        background: #fff;
+        border-radius: 50%;
+        margin: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+</style>
 <div class="breadcumb-wrapper background-image" style="background-image: url('/web/assets/img/bg/breadcumb-bg.jpg');">
     <div class="container">
         <div class="row justify-content-center">
@@ -82,36 +111,14 @@ $n_i = $n_360 = 1;
 @endphp
 <section class="space-top space-extra-bottom arrow-wrap">
     <div class="container">
-        <div class="sharethis-inline-share-buttons st-center st-lang-es st-has-labels st-inline-share-buttons st-animated"
-            style="padding-bottom: 10px;" id="st-1">
-            <div class="st-btn st-first" data-network="facebook" style="display: inline-block;">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode('URL_DE_TU_PAGINA') }}&picture={{ urlencode('URL_DE_LA_IMAGEN') }}"
-                    target="_blank">
-                    <img alt="facebook sharing button" src="https://platform-cdn.sharethis.com/img/facebook.svg">
-                    <span class="st-label">Facebook</span>
-                </a>
-            </div>
-            <div class="st-btn" data-network="twitter" style="display: inline-block;">
-                <a href="https://twitter.com/intent/tweet?url={{ urlencode('URL_DE_TU_PAGINA') }}&text={{ urlencode('Texto opcional para tweet') }}"
-                    target="_blank">
-                    <img alt="twitter sharing button" src="https://platform-cdn.sharethis.com/img/twitter.svg">
-                    <span class="st-label">Twittear</span>
-                </a>
-            </div>
-            <div class="st-btn" data-network="whatsapp" style="display: inline-block;">
-                <a href="https://api.whatsapp.com/send?text={{ urlencode('Texto opcional para WhatsApp: URL_DE_TU_PAGINA') }}"
-                    target="_blank">
-                    <img alt="whatsapp sharing button" src="https://platform-cdn.sharethis.com/img/whatsapp.svg">
-                    <span class="st-label">Whatsapp</span>
-                </a>
-            </div>
-            <div class="st-btn st-last" data-network="sharethis" style="display: inline-block;">
-                <a href="#" target="_blank">
-                    <img alt="sharethis sharing button" src="https://platform-cdn.sharethis.com/img/sharethis.svg">
-                    <span class="st-label">Compartir</span>
-                </a>
-            </div>
-        </div>
+        <!-- From Uiverse.io by david-mohseni -->
+        @role('admin')
+        <ul class="wrapper">
+            <a href="{{ $shareLinks['facebook'] }}" target="_blank" class="icon facebook" style="background: #1877f2">
+                <img alt="facebook sharing" src="https://platform-cdn.sharethis.com/img/facebook.svg">
+            </a>
+        </ul>
+        @endrole
 
         <div class="slider-area property-slider1">
             <div class="swiper th-slider mb-4 swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden"

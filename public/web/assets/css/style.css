@@ -1437,7 +1437,7 @@ input::placeholder {
   color: var(--body-color);
 }
 
-input[type=date] {
+/*input[type=date] {
   padding: 0 25px 0 25px;
   position: relative;
 }
@@ -1457,7 +1457,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   right: 20px;
   z-index: 1;
   cursor: pointer;
-}
+}*/
 
 .form-select,
 select {

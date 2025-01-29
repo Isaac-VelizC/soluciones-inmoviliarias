@@ -36,7 +36,7 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 12, 2);
             $table->string('moneda', 3);
-            $table->string('financiamiento_bancario', 50)->nullable();
+            $table->string('financiamiento_bancario', 5)->nullable();
             $table->string('estatus', 50);
             $table->date('fecha_listado');
             $table->date('fecha_final')->nullable();

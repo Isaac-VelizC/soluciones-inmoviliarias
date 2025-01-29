@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Jorenvh\Share\Share;
 
 class HomeController extends Controller
 {
     public function pagina_nosotros() {
         return view('web.home.page_about');
     }
-    public function index() {
+
+    public function index($id)
+    {
+        $share = new Share();
+        $shareButtons = $share->page(
+            'https://tusitio.com/articulo', // URL que se compartirá
+            'Título del artículo' // Título del contenido compartido
+        )
+        ->facebook()
+        ->twitter()
+        ->linkedin()
+        ->whatsapp()
+        ->telegram()
+        ->reddit();
+
+        return view('socialshare', compact('shareButtons'));
+    }
+
+    /*public function index() {
         try {
             // Iniciar una transacción
             DB::beginTransaction();
@@ -51,6 +65,6 @@ class HomeController extends Controller
             
             return response()->json(['error' => 'Error al asignar roles y permisos.'], 500);
         }
-    }
+    }*/
     
 }
