@@ -28,7 +28,7 @@ class PropiedadesController extends Controller
      */
     public function index()
     {
-        $propiedades = Propiedades::with('propietario')->get();
+        $propiedades = Propiedades::with('propietario')->latest()->get();
         return view('admin::propiedades.index', [
             'propiedades' => $propiedades,
             'esDetalle' => false
@@ -216,7 +216,7 @@ class PropiedadesController extends Controller
         $propiedad = Propiedades::findOrFail($id);
         $propietario = Propietario::findOrFail($propiedad->id_propietario);
         $imagenes = Image::where('id_propiedad', $id)->get();
-        $imagenes360 = Image::where('id_propiedad', $id)->where('tipo', '360')->get();
+        $imagenes360 = Image::with('hotspots')->where('id_propiedad', $id)->where('tipo', '360')->get();
         $hotspots = Hotspot::all();
         if (empty($propiedad)) {
             return response()->json([
@@ -359,7 +359,7 @@ class PropiedadesController extends Controller
 
     public function lista_solicitudes($id) {
         $propiedad = Propiedades::findOrFail($id);
-        $lista = SolicitudServicio::with(['tipoServicio', 'usuario.client'])->where('id_propiedad', $id)->get();
+        $lista = SolicitudServicio::with(['tipoServicio', 'usuario.client'])->where('id_propiedad', $id)->latest()->get();
         return view('admin::propiedades.solicitudes', compact('lista', 'propiedad'));
     }
 }

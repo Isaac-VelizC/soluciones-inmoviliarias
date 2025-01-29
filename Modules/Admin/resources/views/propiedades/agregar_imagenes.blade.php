@@ -219,10 +219,22 @@
 <script>
     var scenes = {
         @foreach ($imagenes360 as $imagen)
-            "scene_{{ $imagen->id }}": {
+        "scene_{{ $imagen->id }}": {
                 "type": "equirectangular",
-                "panorama": "{{ route('adm.propiedades.imagenes.showImage', $imagen->id) }}",
-                "autoLoad": true
+                "panorama": "{{ route('propiedades.imagenes.ver', $imagen->id) }}",
+                "autoLoad": true,
+                "hotSpots": [
+                    @foreach ($imagen->hotspots as $hotspot)
+                        {
+                            "pitch": {{ $hotspot->pitch }},
+                            "yaw": {{ $hotspot->yaw }},
+                            "type": "scene",
+                            "text": "{{ $hotspot->nombre }}",
+                            "sceneId": "scene_{{ $hotspot->targetScene }}",
+                            "cssClass": "custom-hotspot"
+                        },
+                    @endforeach
+                ]
             },
         @endforeach
     };
