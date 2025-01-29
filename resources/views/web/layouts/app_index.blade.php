@@ -134,7 +134,7 @@
                     @auth
                     @role('admin')
                     <li>
-                        <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
+                        <a href="{{ route('adm.propiedades.index') }}" class="color: #E2B93B;">
                             Administración
                         </a>
                     </li>
@@ -257,7 +257,7 @@
                                     @role('admin')
                                     <li>
                                         <a href="{{ route('adm.propiedades.index') }}" class="color: orange;">
-                                            <div style="color: orangered">Administración</div>
+                                            <div style="color: #E2B93B">Administración</div>
                                         </a>
                                     </li>
                                     @endrole

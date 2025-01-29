@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Propiedades - Solicitudes')
+@section('title', 'Servicios - Propiedad')
 
 <!-- Vendor Styles -->
 @section('vendor-style')
@@ -24,7 +24,7 @@
 @section('page-script')
     <script type="module">
         $(function () {
-            const tablePrg = $('#dtServiciosPropiedad').DataTable({
+            const tablePrg = $('#dtServicios').DataTable({
                 'dom': '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>><"table-responsive"t><"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 'drawCallback': function(settings) {
                     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -39,7 +39,7 @@
                 // "responsive": true,
                 'serverSide': true,
                 'processing': true,
-                'ajax': '{{ route('adm.servicios.ajax.propiedad.list', $propiedad->id) }}',
+                'ajax': '{{ route('adm.servicios.ajax.index') }}',
                 'columns': [
                     { data: 'id', 'width': 50 },
                     { data: 'nombre_cliente' },
@@ -54,49 +54,10 @@
     </script>
 @endsection
 
-
 @section('content')
-<div class="app-ecommerce">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
-        <div class="d-flex flex-column justify-content-center">
-            <h4 class="mb-1 mt-3">Detalles de la propiedad <strong>{{ $propiedad->nombre }}</strong> </h4>
-            </p>
-        </div>
-        <div class="d-flex align-content-center flex-wrap gap-3">
-            <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}"
-                class="btn btn-md btn-outline-primary">Registrar Servicio</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="container my-5">
-                <h2 class="text-center">Solicitudes de servicios</h2>
-                <table class="table table-bordered data-table">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Usuario</th>
-                            <th>Fecha</th>
-                            <th>Tipo de Servicio</th>
-                            <th>Detalle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($lista as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->usuario->client->nombre.' '.$item->usuario->client->apellido }}</td>
-                                <td>{{ $item->fecha_fin }}</td>
-                                <td>{{ $item->tipoServicio->nombre }}</td>
-                                <td>{{ $item->servicios_detalle }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <br>
+    <h4 class="py-3 mb-4">
+        <span class="text-muted fw-light">Servicios /</span> Lista
+    </h4>
 
     <!-- Ajax Sourced Server-side -->
     <div class="card">
@@ -107,7 +68,7 @@
             </div>
         </div>
         <div class="card-datatable text-nowrap">
-            <table id="dtServiciosPropiedad" class="datatables-ajax table table-bordered">
+            <table id="dtServicios" class="datatables-ajax table table-bordered">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -122,6 +83,5 @@
             </table>
         </div>
     </div>
-
-</div>
+    <!--/ Ajax Sourced Server-side -->
 @endsection

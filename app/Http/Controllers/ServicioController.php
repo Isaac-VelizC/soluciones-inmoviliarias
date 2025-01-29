@@ -29,9 +29,9 @@ class ServicioController extends Controller
         $servicio = Servicio::findOrFail($id);
         $usuarios = User::with('client')->where('rol', 'cliente')->get();
         $presupuestos = Presupuesto::getByIdServicio($id);
-        //
+        $propiedad = Propiedades::findOrFail($servicio->id_propiedad);
         $tipoServicio = Serviciostipo::all(); //getAllOrdenPorDescripcion();
-        return view('admin::servicios.editar', ['servicio' => $servicio, 'usuarios' => $usuarios, 'presupuestos' => $presupuestos, 'tipoServicio' => $tipoServicio]);
+        return view('admin::servicios.editar', ['servicio' => $servicio, 'usuarios' => $usuarios, 'presupuestos' => $presupuestos, 'tipoServicio' => $tipoServicio,  'propiedadID' => $propiedad]);
     }
     public function agregar($id)
     {
@@ -121,7 +121,6 @@ class ServicioController extends Controller
         }
     }
 
-
     public function store_cliente(Request $request)
     {
         $validatedData = $request->validate([
@@ -189,6 +188,29 @@ class ServicioController extends Controller
     public function ajax_servicios()
     {
         $items = Servicio::with(['usuario.client', 'tipoServicio'])->get();
+
+        // Transformar los datos de los servicios
+        $data = $items->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nombre_cliente'      => $item->usuario->client->nombre . ' ' . $item->usuario->client->apellido,
+                'tipo_de_servicio'    => $item->tipoServicio->nombre,
+                'direccion'           => $item->direccion,
+                'fecha_inicio'        => $item->fecha_inicio,
+                'estado'              => $item->estado,
+            ];
+        });
+
+        return datatables()
+            ->of($data)
+            ->addColumn('botones', 'admin::servicios.actions.index')
+            ->rawColumns(['botones'])
+            ->toJson();
+    }
+
+    public function ajax_servicios_propiedade($id) {
+
+        $items = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_propiedad', $id)->get();
 
         // Transformar los datos de los servicios
         $data = $items->map(function ($item) {

@@ -33,7 +33,8 @@
 
 <!-- Multi Column with Form Separator -->
 <div class="card mb-4">
-    <h5 class="card-header">Servicios para la propiedad <strong>{{ $propiedadID->nombre }}</strong></h5>
+    <h3 class="card-header">Servicios para la propiedad <strong>{{ $propiedadID->nombre }}</strong></h3>
+    <h5 class="card-header">Dirección de la Propiedad <strong>{{ $propiedadID->direccion }}</strong></h5>
     <form class="card-body" action="{{ route('adm.servicios.agregar_nuevo') }}" method="POST">
         @csrf
         <input type="hidden" id="id_propiedad" name="id_propiedad" value="{{ $propiedadID->id }}">

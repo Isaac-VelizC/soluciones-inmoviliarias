@@ -88,19 +88,19 @@ Version: 1.0.0
 /*------------------- 1.2. Function -------------------*/
 /*------------------- 1.3. Variable-------------------*/
 :root {
-  --theme-color: #1C2D37;
-  --theme-color2: #EED26E;
+  --theme-color: #003366;
+  --theme-color2: #6ed4ee;
   --title-color: #0D0D0C;
-  --title-dark: #364440;
-  --body-color: #6E7070;
-  --smoke-color: #C0CDD1;
-  --smoke-color2: #666666;
+  --title-dark: #889fcc;
+  --body-color: #68add7;
+  --smoke-color: #9bc6d3;
+  --smoke-color2: #bce7f3;
   --black-color: #000000;
   --black-color2: #1B1B1B;
   --black-color3: #1A1A1A;
   --gray-color: #DDE8DD;
   --white-color: #ffffff;
-  --light-color: #A4B5BA;
+  --light-color: #69a1b1;
   --yellow-color: #E2B93B;
   --success-color: #27AE60;
   --error-color: #EB5757;

@@ -54,7 +54,7 @@ class CitaController extends Controller
             $hdia = $dia;
             $horas = $this->generateTimes($hanio, $hmes, $hdia);
         }
-        $citas = Cita::with('propiedad')->where('usuario_id', auth()->id())->get();
+        $citas = Cita::with('propiedad')->where('usuario_id', auth()->id())->latest()->get();
         $propiedad = Propiedades::findOrFail($id);
         $controlCitaPropiedad = Cita::getCitasControlByPropiedad($id);
         $ultimaCita = Cita::with('propiedad')
@@ -111,7 +111,7 @@ class CitaController extends Controller
 
     public function index_admin()
     {
-        $citas = Cita::with(['propiedad', 'user'])->get();
+        $citas = Cita::with(['propiedad', 'user'])->latest()->get();
         return view('admin::citas.index', ['citas' => $citas]);
     }
     public function admin_cita_encuesta(Request $request)
@@ -206,10 +206,16 @@ class CitaController extends Controller
 
     public function serviciosPorPropiedad($id)
     {
+        $propiedad = Propiedades::findOrFail($id);
         $tipoServicio = ServiciosTipo::all();
         $user = auth()->user();
-        $servicios = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_usuario', $user->id)->where('id_propiedad', $id)->get();
-        return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios, 'tipoServicio' => $tipoServicio, 'idPropiedad' => $id]);
+        $servicios = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_usuario', $user->id)->where('id_propiedad', $id)->latest()->get();
+        return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios, 'tipoServicio' => $tipoServicio, 'propiedad' => $propiedad]);
+    }
+
+    public function detalleServicioCliente($id) {
+        $servicio = Servicio::with(['tipoServicio', 'imagenes', 'propiedad'])->findOrFail($id);
+        return view('web.home.servicio_detalle', ['servicio' => $servicio]);
     }
 
     public function store(Request $request)

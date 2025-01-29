@@ -76,7 +76,9 @@
 
 <!-- Multi Column with Form Separator -->
 <div class="card mb-4">
-    <h5 class="card-header">Servicios</h5>
+    <h3 class="card-header">Servicios para la propiedad <strong>{{ $propiedadID->nombre }}</strong></h3>
+    <h5 class="card-header">Dirección de la Propiedad <strong>{{ $propiedadID->direccion }}</strong></h5>
+    
     <form class="card-body" action="{{ route('adm.servicios.editar_existente') }}" method="POST">
         @csrf
         <input type="hidden" id="id" name="id" value="{{ $servicio->id }}">
@@ -281,7 +283,7 @@
         </div>
         <div class="pt-4">
             <button type="submit" class="btn btn-primary me-sm-3 me-1">Enviar</button>
-            <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+            <a href="{{ route('adm.servicio.solicitud', $propiedadID->id ) }}" class="btn btn-outline-secondary">Cancelar</a>
         </div>
     </form>
 </div>

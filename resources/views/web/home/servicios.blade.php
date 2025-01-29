@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h4>Solicitar servicio</h4>
+                <h4>Solicitar servicio Propiedad <strong>{{ $propiedad->nombre }}</strong></h4>
                 <form action="{{ route('citas.servicios.solicitud.store') }}" class="woocommerce-form-login mb-3"
                     method="post">
                     @if(session('success'))
@@ -35,7 +35,7 @@
                     </div>
                     @endif
                     @csrf
-                    <input type="hidden" id="id_propiedad" name="id_propiedad" value="{{ $idPropiedad }}">
+                    <input type="hidden" id="id_propiedad" name="id_propiedad" value="{{ $propiedad->id }}">
                     <input type="hidden" id="id_usuario" name="id_usuario" value="{{ auth()->id() }}">
                     <div class="row">
                         <div class="form-group col-6">
@@ -90,6 +90,7 @@
                         <th class="cart-col-price">Fecha Inicio</th>
                         <th class="cart-col-quantity">Fecha Fin</th>
                         <th class="cart-col-quantity">Estado</th>
+                        <th class="cart-col-detalle">Detalle</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,6 +114,9 @@
                         </td>
                         <td data-title="Quantity">
                             <strong class="product-quantity">{{ ucfirst($c->estado) }}</strong>
+                        </td>
+                        <td data-title="Detalle">
+                            <a href="{{ route('usuario.servicios.detalle', $c->id) }}">Detalles</a>
                         </td>
                     </tr>
                     @endforeach

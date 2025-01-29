@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/usuario/servicios/{id}', [CitaController::class, 'serviciosPorPropiedad'])->name('usuario.servicios.index.propiedad');
     Route::post('/usuario/servicios/solicitud/store/', [ServicioController::class, 'solicitar_servicio'])->name('citas.servicios.solicitud.store');
     Route::post('/usuario/servicios/store', [ServicioController::class, 'store_cliente'])->name('citas.servicios.cliente.store');
+    Route::get('/usuario/servicios/{id}/detalle', [CitaController::class, 'detalleServicioCliente'])->name('usuario.servicios.detalle');
 
     Route::get('/usuario/citas/todos', [CitaController::class, 'all_citas_user'])->name('all.citas.user');
     Route::get('/usuario/citas/ver/{id?}/{mes?}/{dia?}/', [CitaController::class, 'index'])->name('usuario.citas.index');

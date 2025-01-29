@@ -11,10 +11,10 @@ class UserManagement extends Controller
 {
     public function UserManagement()
     {
-        $users = User::all();
+        $users = User::where('rol', '!=', 'admin')->get();
         $userCount = $users->count();
-        $verified = User::whereNotNull('email_verified_at')->get()->count();
-        $notVerified = User::whereNull('email_verified_at')->get()->count();
+        $verified = User::whereNotNull('email_verified_at')->where('rol', '!=', 'admin')->get()->count();
+        $notVerified = User::whereNull('email_verified_at')->where('rol', '!=', 'admin')->get()->count();
         $usersUnique = $users->unique(['email']);
         $userDuplicates = $users->diff($usersUnique)->count();
 
@@ -50,8 +50,7 @@ class UserManagement extends Controller
         if (empty($request->input('search.value'))) {
             $users = User::offset($start)
                 ->limit($limit)
-                ->orderBy($order, $dir)
-                ->get();
+                ->orderBy($order, $dir)->where('rol', '!=', 'admin')->get();
         } else {
             $search = $request->input('search.value');
 

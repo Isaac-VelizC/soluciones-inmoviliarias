@@ -29,7 +29,7 @@ class PropiedadesController extends Controller
     {
         $tipos = PropiedadesTipo::all();
         $ciudades = $this->ciudadesBolivia();
-        $propiedades = Propiedades::with('tipoPropiedad')->where('estatus', 'Disponible')->get();
+        $propiedades = Propiedades::with('tipoPropiedad')->where('estatus', 'Disponible')->latest()->get();
         return view('web.home.propiedades', ['propiedades' => $propiedades, 'tipos' => $tipos, 'ciudades' => $ciudades]);
     }
     public function detalle(Request $request, $id)

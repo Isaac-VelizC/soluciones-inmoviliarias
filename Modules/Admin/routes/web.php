@@ -51,6 +51,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/servicios/show/{id}', [ServicioController::class, 'show'])->name('adm.servicios.show');
         Route::get('/servicios/seguimiento/{id?}', [ServicioController::class, 'seguimiento'])->name('adm.servicios.seguimiento');
         Route::get('/servicios/lista/ajax', [ServicioController::class, 'ajax_servicios'])->name('adm.servicios.ajax.index');
+        Route::get('/servicios/lista/propiedad/{id}', [ServicioController::class, 'ajax_servicios_propiedade'])->name('adm.servicios.ajax.propiedad.list');
         //
         Route::get('/servicios/agregar/{id?}', [ServicioController::class, 'agregar'])->name('adm.servicios.agregar');
         Route::post('/servicios/agregar_nuevo', [ServicioController::class, 'store'])->name('adm.servicios.agregar_nuevo');
