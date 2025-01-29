@@ -49,6 +49,54 @@
     .image-option.selected {
         border-color: blue;
     }
+    
+    .custom-hotspot {
+        width: 20px;
+        height: 20px;
+        background-color: black;
+        border-radius: 50%;
+        border: 3px solid white;
+    }
+
+    .property-slider-img {
+        width: 100%;
+        height: 550px;
+        /* Ajusta según lo que necesites */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .property-slider-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Cubre el div sin deformarse */
+        object-position: center;
+        /* Centra la imagen dentro del contenedor */
+    }
+
+    /* Miniaturas */
+    .property-thumb-slider .swiper-slide {
+        width: 100%;
+        height: 140px;
+        /* Altura fija de miniaturas */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .property-thumb-slider .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: transform 0.3s ease-in-out;
+    }
 </style>
 
 <h4 class="py-3 mb-4">
