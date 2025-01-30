@@ -161,7 +161,7 @@ $og_img = route('propiedades.imagenes.ver', $portadaPublic->id);
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-tile mb-0">Información de la propiedad existente </h5>
-                        <a class="button-facebook" href="{{ $shareLinks['facebook'] }}" target="_blank">
+                        <a class="button-facebook" href="{{ $shareLinks['facebook'] }}" target="_blank" data-network="facebook">
                             <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
