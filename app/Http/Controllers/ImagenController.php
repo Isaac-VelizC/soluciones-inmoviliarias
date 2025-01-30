@@ -37,14 +37,14 @@ class ImagenController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
+
         try {
             // Procesar las imágenes si existen
             if ($request->hasFile('imagenes')) {
                 $imagenes = $request->file('imagenes');
                 $tipo = $request->tipo;
                 $idPropiedad = $request->id_propiedad_img;
-                
+
                 // Guardar todas las imágenes en un solo paso
                 foreach ($imagenes as $imagen) {
                     Image::create([
@@ -101,7 +101,7 @@ class ImagenController extends Controller
     public function storeHotspot(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre_hotspot' => 'required|string|max:100|regex:/^[A-Za-zÑñáéíóúÁÉÍÓÚ ]+$/', // Se agrega un límite máximo
+            'nombre_hotspot' => 'required|string|max:30|regex:/^[A-Za-zÑñáéíóúÁÉÍÓÚ0-9 ]+$/',
             'targetScene' => 'required|integer|exists:images,id',
             'sceneId' => 'required|integer|exists:images,id',
             'propiedad_id' => 'required|integer|exists:propiedades,id', // Corrección de "exist" a "exists"

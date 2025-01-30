@@ -49,7 +49,7 @@
     .image-option.selected {
         border-color: blue;
     }
-    
+
     .custom-hotspot {
         width: 20px;
         height: 20px;
@@ -215,6 +215,8 @@
             <h5 class="card-title">Imágenes 360: Registrar el Recorrido de la Propieda
                 <strong>{{$propiedad->nombre}}</strong>
             </h5>
+            <p class="text-warning">Por favor, selecciona una imagen para registrar el hotspot. Luego, navega por la
+                imagen hasta el punto donde deseas crear el hotspot y haz clic en ese lugar.</p>
         </div>
         <div class="card-body">
             <!-- Miniaturas de imágenes -->
@@ -238,7 +240,7 @@
                     @enderror
                 </div>
                 <div>
-                    <label class="form-label">Seleccionar imagen destino:</label>
+                    <label class="form-label">Seleccionar imagen destino del Hotspot:</label>
                     <div class="image-select-container">
                         @foreach ($imagenes360 as $imageSelect)
                         <div class="image-option" onclick="selectImage(this, '{{ $imageSelect->id }}')">
