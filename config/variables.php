@@ -1,7 +1,7 @@
 <?php
 // Variables
 return [
-  "creatorName" => "AIsakVeliz",
+  "creatorName" => "Soluciones Inmobiliarias",
   "creatorUrl" => "https://aisakveliz.netlify.app",
   "templateName" => "Inmobiliarias",
   "templateSuffix" => "Soluciones Inmobiliarias",

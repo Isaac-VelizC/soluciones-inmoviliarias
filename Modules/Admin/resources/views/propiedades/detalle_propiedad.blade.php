@@ -12,7 +12,7 @@ $og_img = route('propiedades.imagenes.ver', $portadaPublic->id);
 }
 @endphp
 @section('og_image', $og_img)
-<!--@section('og_url', url()->current())-->
+@section('og_url', $urlPublic)
 
 @section('content')
 <!-- Pannellum CSS -->

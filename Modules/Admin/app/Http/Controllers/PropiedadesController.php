@@ -344,17 +344,17 @@ class PropiedadesController extends Controller
         }
         $imagen360 = Image::with('hotspots')->where('tipo', '360')->where('id_propiedad', $id)->get();
         $visitas = Visita::obtenerTotalVisitas($id);
-        $url = url("/propiedades/detalle/{$propiedad->id}");
+        $urlPublic = url("/propiedades/detalle/{$propiedad->id}");
         $title = $propiedad->nombre;
         $price = number_format($propiedad->precio, 2);
         $message = "🏡 ¡Mira esta propiedad en venta! {$title} por \${$price}. Más detalles aquí: ";
         $shareLinks = [
-            'facebook' => "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url),
+            'facebook' => "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($urlPublic),
         ];
 
         $portadaPublic = Image::where('tipo', 'casa_fuera')->where('id_propiedad', $id)->first();
 
-        return view('admin::propiedades.detalle_propiedad', compact('propiedad', 'visitas', 'imagen360', 'shareLinks', 'message', 'portadaPublic'));
+        return view('admin::propiedades.detalle_propiedad', compact('propiedad', 'visitas', 'imagen360', 'shareLinks', 'message', 'portadaPublic', 'urlPublic'));
     }
 
     public function edit($id)
