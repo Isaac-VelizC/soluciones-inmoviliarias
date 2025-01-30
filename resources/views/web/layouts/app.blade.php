@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Soluciones Inmboliviarias - @yield('og_title', 'Principal')</title>
+    <title>Soluciones Inmboliviarias - @yield('title', 'Principal')</title>
     <meta name="author" content="Casas">
     <meta name="description"
         content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">

@@ -41,6 +41,12 @@ class PropiedadesController extends Controller
         $propiedad = Propiedades::with('tipoPropiedad')->findOrFail($id);
         //Contar visitas
         $ip = $request->ip();
+        
+        $urlPublic = url("/propiedades/detalle/{$propiedad->id}");
+        $title = $propiedad->nombre;
+        $price = number_format($propiedad->precio, 2);
+        $message = "🏡 ¡Mira esta propiedad en venta! {$title} por \${$price}. Más detalles aquí: ";
+        $portadaPublic = Image::where('tipo', 'casa_fuera')->where('id_propiedad', $id)->first();
         // Registrar visita
         Visita::registrarVisita($id, $ip);
         return view('web.home.propiedades_detalle', [
@@ -48,6 +54,9 @@ class PropiedadesController extends Controller
             'imagenes' => $imagenes,
             'imagen360' => $imagen360,
             'imagenCasa' => $imagenCasa,
+            'urlPublic' => $urlPublic,
+            'message' => $message,
+            'portadaPublic' => $portadaPublic
         ]);
     }
 

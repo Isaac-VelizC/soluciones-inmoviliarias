@@ -1,4 +1,16 @@
 @extends('web.layouts.app')
+@section('title', 'Detalles')
+
+@section('og_title', $propiedad->nombre)
+@section('og_description', $message)
+@php
+$og_img = asset('web/Soluciones_Inmobiliarias.webp');
+if($portadaPublic){
+$og_img = route('propiedades.imagenes.ver', $portadaPublic->id);
+}
+@endphp
+@section('og_image', $og_img)
+@section('og_url', $urlPublic)
 
 @section('content')
 
