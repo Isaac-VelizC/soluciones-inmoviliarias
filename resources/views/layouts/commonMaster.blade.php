@@ -23,6 +23,18 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
         {{ config('variables.templateSuffix') ? config('variables.templateSuffix') : 'TemplateSuffix' }}</title>
     <meta name="description"
         content="{{ config('variables.templateDescription') ? config('variables.templateDescription') : '' }}" />
+
+    <meta property="og:title" content="@yield('og_title', 'Principal')">
+    <meta property="og:description"
+        content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
+    <meta property="og:image" content="@yield('og_image', asset('web/Soluciones_Inmobiliarias.webp'))">
+    <meta property="og:url" content="@yield('og_url', 'http://casas.test')">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('og_title', 'Principal')">
+    <meta name="twitter:description"
+        content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
+    <meta name="twitter:image" content="@yield('og_image', asset('web/Soluciones_Inmobiliarias.webp'))">
+
     <meta name="keywords"
         content="{{ config('variables.templateKeyword') ? config('variables.templateKeyword') : '' }}">
     <!-- laravel CRUD token -->
@@ -30,7 +42,7 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
     <!-- Canonical SEO -->
     <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <!--link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" /-->
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     {{-- remove while creating package --}}

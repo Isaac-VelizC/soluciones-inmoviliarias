@@ -72,6 +72,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
         Route::get('/propietarios/{id?}/edit', [PropietarioController::class, 'edit'])->name('adm.propietarios.edit');
         Route::post('/propietarios/update', [PropietarioController::class, 'update'])->name('adm.propietarios.update');
+
+        Route::delete('/propietarios/{id}/delete', [PropiedadesController::class, 'destroy'])->name('adm.propietarios.destroy');
         //Citas
         Route::get('/citas/lista', [CitaController::class, 'index_admin'])->name('adm.citas.index');
         Route::get('/citas/usuario/{id?}', [CitaController::class, 'index_admin_user'])->name('adm.citas.usuarios');

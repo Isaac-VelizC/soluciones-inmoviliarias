@@ -13,40 +13,49 @@ Hero Area
     <div class="swiper th-slider hero-slider1" id="heroSlide1"
         data-slider-options='{"effect":"fade", "autoHeight": "true"}'>
         <div class="swiper-wrapper">
-            @foreach ($imagenes as $imagen)
+            @foreach ($propiedades as $propiedadCarousel)
             <div class="swiper-slide">
                 <div class="hero-inner" data-mask-src="/web/assets/img/hero/hero_1_bg_mask.png">
-                    <div class="th-hero-bg"
-                        data-bg-src="{{ $imagenes->isNotEmpty() ? route('propiedades.imagenes.ver', $imagen->id) : '/web/assets/img/hero/default_bg.jpg' }}">
+                    @if ($propiedadCarousel->imagenes->isNotEmpty())
+                    @php
+                    $imagen = $propiedadCarousel->imagenes->first();
+                    @endphp
+                    <div class="th-hero-bg" data-bg-src="{{ route('propiedades.imagenes.ver', $imagen->id) }}">
                     </div>
+                    @else
+                    <div class="th-hero-bg" data-bg-src="/web/assets/img/hero/default_bg.jpg">
+                    </div>
+                    @endif
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-8">
                                 <div class="hero-style1">
                                     <h1 class="hero-title text-white">
-                                        <span class="title1" data-ani="slideindown" data-ani-delay="0.3s">Propiedad en {{ $ultimaPublicitada->ciudad }}</span>
+                                        <span class="title1" data-ani="slideindown" data-ani-delay="0.3s">Propiedad en
+                                            {{ $propiedadCarousel->ciudad }}</span>
                                     </h1>
                                     <div class="col-8">
-                                        <div class="card" style="background-color: rgba(128, 128, 128, 0.5); rounde-radius: 15px;"
+                                        <div class="card"
+                                            style="background-color: rgba(128, 128, 128, 0.5); border-radius: 15px;"
                                             data-ani="slideinup" data-ani-delay="0.5s">
                                             <div class="card-body">
                                                 <h5 style="color: #071d88" data-ani="slideindown" data-ani-delay="0.4s">
-                                                    {{ $ultimaPublicitada->precio. ' '.$ultimaPublicitada->moneda }}
+                                                    {{ $propiedadCarousel->precio. ' '.$propiedadCarousel->moneda }}
                                                 </h5>
-                                                <p class=" text-white">🌍 {{ $ultimaPublicitada->direccion }}</p>
+                                                <p class=" text-white">🌍 {{ $propiedadCarousel->direccion }}</p>
                                                 <p class="card-text text-white">
-                                                    {{ "Ambientes: " . $ultimaPublicitada->num_habitaciones }} -
-                                                    {{ "Baños: " . $ultimaPublicitada->num_banos }} -
-                                                    {{ "Garaje: " . $ultimaPublicitada->num_garajes }} -
-                                                    {{ "Cocina: " . $ultimaPublicitada->num_cocinas }} -
-                                                    {{ "Dormitorio: " . $ultimaPublicitada->num_dormitorios }} -
-                                                    {{ "Sala: " . $ultimaPublicitada->num_salas }}
+                                                    {{ "Ambientes: " . $propiedadCarousel->num_habitaciones }} -
+                                                    {{ "Baños: " . $propiedadCarousel->num_banos }} -
+                                                    {{ "Garaje: " . $propiedadCarousel->num_garajes }} -
+                                                    {{ "Cocina: " . $propiedadCarousel->num_cocinas }} -
+                                                    {{ "Dormitorio: " . $propiedadCarousel->num_dormitorios }} -
+                                                    {{ "Sala: " . $propiedadCarousel->num_salas }}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
-                                    <a href="{{ route('propiedades.detalle', $ultimaPublicitada->id) }}"
+                                    <a href="{{ route('propiedades.detalle', $propiedadCarousel->id) }}"
                                         class="th-btn btn-mask th-btn-icon" data-ani="slideinup"
                                         data-ani-delay="0.6s">Propiedades en venta</a>
                                 </div>

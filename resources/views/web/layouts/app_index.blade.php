@@ -14,33 +14,22 @@
     <meta property="og:title" content="@yield('og_title', 'Principal')">
     <meta property="og:description"
         content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
-    <meta property="og:image" content="@yield('og_image', asset('web/default.jpg'))">
+    <meta property="og:image" content="@yield('og_image', asset('web/Soluciones_Inmobiliarias.webp'))">
     <meta property="og:url" content="@yield('og_url', 'http://casas.test')">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('og_title', 'Principal')">
     <meta name="twitter:description"
         content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
-    <meta name="twitter:image" content="@yield('og_image', asset('web/default.jpg'))">
+    <meta name="twitter:image" content="@yield('og_image', asset('web/Soluciones_Inmobiliarias.webp'))">
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicons - Place favicon.ico in the root directory -->
-    <link rel="apple-touch-icon" sizes="57x57" href="/web/assets/img/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/web/assets/img/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/web/assets/img/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/web/assets/img/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/web/assets/img/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/web/assets/img/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/web/assets/img/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/web/assets/img/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/web/assets/img/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/web/assets/img/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/web/assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/web/assets/img/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/web/assets/img/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/web/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/web/assets/img/favicons/favicon-192x192.png"/>
     <link rel="manifest" href="/web/assets/img/favicons/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/web/assets/img/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
     <!--==============================
@@ -111,7 +100,7 @@
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
                 <a href="/">
-                    <img src="/web/assets/img/logo-white.png" alt="Grupo CaSa">
+                    <img src="/web/assets/img/logo-white.png" alt="Soluciones Inmobiliarias">
                 </a>
             </div>
             <div class="th-mobile-menu">
@@ -231,7 +220,7 @@
                         <div class="col-auto">
                             <div class="header-logo">
                                 <a href="/">
-                                    <img src="/web/assets/img/logo-white.png" alt="Grupo CaSa">
+                                    <img src="/web/assets/img/logo-white.png" alt="Soluciones Inmobiliarias">
                                 </a>
                             </div>
                         </div>
@@ -315,18 +304,16 @@
                                     <div class="about-logo">
                                         <a href="/"><img src="/web/assets/img/logo.png" alt="Realar"></a>
                                     </div>
-                                    <p class="about-text">Grupo Inmobiliario CaSa: Expertos en propiedades, creamos
+                                    <p class="about-text">soluciones Inmobiliarias: Expertos en propiedades, creamos
                                         hogares y oportunidades. Transformamos sueños en realidad con servicio
                                         personalizado e innovación inmobiliaria.</p>
                                     <div class="th-social style3">
                                         <a href="https://www.facebook.com/profile.php?id=100076063382588"><i
                                                 class="fab fa-facebook-f"></i></a>
-                                        <a href="https://bit.ly/Grupo_Inmobiliario_CaSa"><i
+                                        <a href="#"><i
                                                 class="fa-brands fa-whatsapp"></i></a>
-                                        <a href="https://www.instagram.com/casa_grupo_inmobiliario/"><i
+                                        <a href="#"><i
                                                 class="fab fa-instagram-square"></i></a>
-                                        <a href="http://tiktok.com/@casa_grupo_inmobiliario"><i
-                                                class="fa-brands fa-tiktok"></i></a>
                                         <a href="mailto:casagrupoinmobiliario@gmail.com"><i
                                                 class="fa-solid fa-envelope"></i></a>
                                     </div>
@@ -376,16 +363,16 @@
                     <div class="row gy-2 align-items-center">
                         <div class="col-lg-6">
                             <p class="copyright-text">
-                                Copyright <i class="fal fa-copyright"></i> 2024 <a href="/">Grupo Casa</a>, Derechos
+                                Copyright <i class="fal fa-copyright"></i> 2024 <a href="/">Soluciones Inmobiliarias</a>, Derechos
                                 reservados.
                             </p>
                         </div>
                         <div class="col-lg-6">
                             <div class="th-social justify-content-lg-end justify-content-center">
-                                <a href="https://www.facebook.com/Grupo-Inmobiliario-CaSa-102003742321665"><i
+                                <a href="#"><i
                                         class="fab fa-facebook-f"></i></a>
-                                <a href="https://bit.ly/Grupo_Inmobiliario_CaSa"><i class="fab fa-whatsapp"></i></a>
-                                <a href="https://www.instagram.com/casa_grupo_inmobiliario/"><i
+                                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#/"><i
                                         class="fab fa-instagram"></i></a>
                             </div>
                         </div>

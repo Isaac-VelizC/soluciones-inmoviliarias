@@ -76,7 +76,7 @@
 
 <!-- Multi Column with Form Separator -->
 <div class="card mb-4">
-    <h3 class="card-header">Servicios para la propiedad <strong>{{ $propiedadID->nombre }}</strong></h3>
+    <h1 class="card-header">Servicios para la propiedad <strong>{{ $propiedadID->nombre }}</strong></h1>
     <h5 class="card-header">Dirección de la Propiedad <strong>{{ $propiedadID->direccion }}</strong></h5>
     
     <form class="card-body" action="{{ route('adm.servicios.editar_existente') }}" method="POST">
@@ -89,7 +89,7 @@
         @endif
         <h6>1. Detalles</h6>
         <div class="row g-4">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <select id="id_usuario" name="id_usuario"
                         class="@error('id_usuario') is-invalid @enderror select2 form-select" data-allow-clear="true">
@@ -100,18 +100,7 @@
                     <label for="tipo_de_servicio">Cliente Seleccionar</label>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-floating form-floating-outline">
-                    <input type="text" id="direccion" name="direccion"
-                        class="@error('direccion') is-invalid @enderror form-control" placeholder="Calle X"
-                        value="{{ $servicio->direccion }}" />
-                    @error('direccion')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                    <label for="direccion">Direccion</label>
-                </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <select id="tipo_de_servicio" name="tipo_de_servicio"
                         class="@error('tipo_de_servicio') is-invalid @enderror select2 form-select"
@@ -123,7 +112,7 @@
                     <label for="tipo_de_servicio">Tipo de servicio</label>
                 </div>
             </div>
-            <div class="col-md-6 select2-primary">
+            <div class="col-md-4 select2-primary">
                 <div class="form-floating form-floating-outline">
                     <select id="servicios_detalle" name="servicios_detalle[]"
                         class="@error('servicios_detalle') is-invalid @enderror select2 form-select" multiple>
@@ -214,7 +203,7 @@
         <hr class="my-4 mx-n4" />
         <h6>3. Trabajador</h6>
         <div class="row g-4">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <input type="text" id="nombre_trabajador" name="nombre_trabajador"
                         class="@error('nombre_trabajador') is-invalid @enderror form-control" placeholder="Juan"
@@ -225,7 +214,7 @@
                     <label for="nombre_trabajador">Nombre del trabajador</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <input type="text" id="fecha_inicio" name="fecha_inicio"
                         class="@error('fecha_inicio') is-invalid @enderror form-control dob-picker"
@@ -236,7 +225,7 @@
                     <label for="fecha_inicio">Fecha Inicio</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <input type="text" id="fecha_fin" name="fecha_fin"
                         class="@error('fecha_fin') is-invalid @enderror form-control dob-picker"
@@ -247,7 +236,7 @@
                     <label for="fecha_fin">Fecha Fin</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating form-floating-outline">
                     <select id="estado" name="estado" class="@error('estado') is-invalid @enderror select2 form-select"
                         data-allow-clear="true">
@@ -259,7 +248,7 @@
                     <label for="tipo_de_servicio">Estado</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-floating">
                     <input type="number" min="0" id="precio" name="precio"
                         class="@error('precio') is-invalid @enderror form-control" placeholder="0000"

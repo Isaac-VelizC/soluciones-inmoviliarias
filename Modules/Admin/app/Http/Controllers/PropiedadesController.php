@@ -335,7 +335,7 @@ class PropiedadesController extends Controller
             'ultDescripcion' => $nuevoData->descripcion
         ], 201);
     }
-    
+
     public function show($id)
     {
         $propiedad = Propiedades::with(['propietario', 'imagenes'])->find($id);
@@ -344,20 +344,43 @@ class PropiedadesController extends Controller
         }
         $imagen360 = Image::with('hotspots')->where('tipo', '360')->where('id_propiedad', $id)->get();
         $visitas = Visita::obtenerTotalVisitas($id);
-        return view('admin::propiedades.detalle_propiedad', compact('propiedad', 'visitas', 'imagen360'));
+        $url = url("/propiedades/detalle/{$propiedad->id}");
+        $title = $propiedad->nombre;
+        $price = number_format($propiedad->precio, 2);
+        $message = "🏡 ¡Mira esta propiedad en venta! {$title} por \${$price}. Más detalles aquí: ";
+        $shareLinks = [
+            'facebook' => "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url),
+        ];
+
+        $portadaPublic = Image::where('tipo', 'casa_fuera')->where('id_propiedad', $id)->first();
+
+        return view('admin::propiedades.detalle_propiedad', compact('propiedad', 'visitas', 'imagen360', 'shareLinks', 'message', 'portadaPublic'));
     }
 
     public function edit($id)
     {
         return view('admin::edit');
     }
-    
+
     public function destroy($id)
     {
-        //
+        try {
+            // Buscar la propiedad y sus relaciones
+            $propiedad = Propiedades::with(['imagenes', 'hotspots', 'visitas'])->findOrFail($id);
+            Image::where('id_propiedad', $id)->delete();
+            Hotspot::where('propiedad_id', $id)->delete();
+            Visita::where('propiedad_id', $id)->delete();
+            $propiedad->delete();
+            // Redirigir con un mensaje de éxito
+            return redirect()->route('adm.propiedades.index')->with('success', 'Propiedad eliminada con éxito');
+        } catch (\Exception $e) {
+            // Manejar excepciones y redirigir con un mensaje de error
+            return back()->with('error', 'Ocurrió un error al eliminar la propiedad: ' . $e->getMessage());
+        }
     }
 
-    public function lista_solicitudes($id) {
+    public function lista_solicitudes($id)
+    {
         $propiedad = Propiedades::findOrFail($id);
         $lista = SolicitudServicio::with(['tipoServicio', 'usuario.client'])->where('id_propiedad', $id)->latest()->get();
         return view('admin::propiedades.solicitudes', compact('lista', 'propiedad'));

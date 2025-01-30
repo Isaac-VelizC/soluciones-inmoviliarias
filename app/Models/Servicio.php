@@ -30,7 +30,6 @@ class Servicio extends Model
 
     public static $rules = [
         'tipo_de_servicio' => 'required|integer|exists:servicios_tipo,id',
-        'direccion' => 'required|string|max:255',
         'servicios_detalle' => 'required|array',
         'nombre_trabajador' => 'required|string|max:100',
         'descripcion' => 'nullable|string',
@@ -44,7 +43,6 @@ class Servicio extends Model
 
     public static $rulesupdate = [
         'tipo_de_servicio' => 'required|integer|exists:servicios_tipo,id',
-        'direccion' => 'required|string|max:255',
         'servicios_detalle' => 'required|array',
         'nombre_trabajador' => 'required|string|max:100',
         'descripcion' => 'nullable|string',

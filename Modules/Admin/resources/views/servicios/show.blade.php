@@ -13,7 +13,7 @@
             </p>
         </div>
         <div class="d-flex align-content-center flex-wrap gap-3">
-            <a href="{{ route('adm.servicios.index') }}" class="btn btn-outline-secondary">Volver</a>
+            <a href="{{ route('adm.servicios.agregar', $servicio->propiedad->id) }}" class="btn btn-outline-secondary">Volver</a>
             <a href="{{ route('adm.servicios.editar', $servicio->id) }}" id="submitBtn"
                 class="btn btn-primary">Editar</a>
         </div>

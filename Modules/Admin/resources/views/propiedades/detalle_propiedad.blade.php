@@ -2,6 +2,18 @@
 
 @section('title', 'Propiedades - Detalles')
 
+
+@section('og_title', $propiedad->nombre)
+@section('og_description', $message)
+@php
+$og_img = asset('web/Soluciones_Inmobiliarias.webp');
+if($portadaPublic){
+$og_img = route('propiedades.imagenes.ver', $portadaPublic->id);
+}
+@endphp
+@section('og_image', $og_img)
+<!--@section('og_url', url()->current())-->
+
 @section('content')
 <!-- Pannellum CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
@@ -56,7 +68,36 @@
         border-radius: 5px;
         transition: transform 0.3s ease-in-out;
     }
+
+    .button-facebook {
+        background: transparent;
+        position: relative;
+        padding: 1px 10px;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid #0163E0;
+        border-radius: 25px;
+        outline: none;
+        overflow: hidden;
+        color: #0163E0;
+        text-align: center;
+    }
+
+    .button-facebook svg {
+        fill: #0163E0;
+        height: 25px;
+        width: 25px;
+    }
+
+    .button-facebook span {
+        margin: 10px;
+    }
 </style>
+
 <div class="app-ecommerce">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
         <div class="d-flex flex-column justify-content-center">
@@ -64,7 +105,15 @@
             <p>Propietario <strong>{{ $propiedad->propietario->nombre .' '. $propiedad->propietario->apellido}}</strong>
             </p>
         </div>
+
+        @if(session('error'))
+        <div class="alert alert-error" role="alert">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="d-flex align-content-center flex-wrap gap-3">
+            <button type="button" onclick="abrirModalDeletePropiedad()"
+                class="btn btn-md btn-outline-danger">Eliminar</button>
             <a href="{{ route('adm.servicio.solicitud', $propiedad->id ) }}"
                 class="btn btn-md btn-outline-primary">Solicitudes</a>
             <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}"
@@ -110,7 +159,21 @@
         <div class="col-12 col-lg-7">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="card-tile mb-0">Información de la propiedad existente </h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-tile mb-0">Información de la propiedad existente </h5>
+                        <a class="button-facebook" href="{{ $shareLinks['facebook'] }}" target="_blank">
+                            <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C15.9164 21.5878 18.0622 20.3855 19.6099 18.57C21.1576 16.7546 22.0054 14.4456 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z">
+                                    </path>
+                                </g>
+                            </svg>
+                            <span>Facebook</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <p class="card-text">
@@ -183,5 +246,33 @@
         },
         scenes: scenes
     });
+
+    function abrirModalDeletePropiedad() {
+        $('#modalDeletePropiedad').modal('show');
+    }
 </script>
+
+<!-- Modal Eliminar propiedad -->
+<div class="modal fade" id="modalDeletePropiedad" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel4">Eliminar Propiedad</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('adm.propietarios.destroy', $propiedad->id )}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="modal-body">
+                    <p>Esat seguro de que quiere eliminar la propiedad {{ $propiedad->nombre }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection

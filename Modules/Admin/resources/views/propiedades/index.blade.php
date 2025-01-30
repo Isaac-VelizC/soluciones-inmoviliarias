@@ -19,6 +19,11 @@ use App\Models\Visita;
     Lista
 </h4>
 
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+    {{ session('success') }}
+</div>
+@endif
 @if (count($propiedades) <= 0) <div class="display-1 d-flex justify-content-center align-items-center"
     style="height: 90%;">
     <h4 class="text-center">No existen propiedades registradas</h4>

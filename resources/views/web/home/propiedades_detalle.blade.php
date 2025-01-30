@@ -1,16 +1,5 @@
 @extends('web.layouts.app')
 
-@section('og_title', $propiedad->nombre)
-@section('og_description', $propiedad->descripcion)
-@php
-$og_img = asset('web/default.jpg');
-if(isset($imagenes[0]->id)){
-$og_img = route('propiedades.imagenes.ver', $imagenes[0]->id);
-}
-@endphp
-@section('og_image', $og_img)
-@section('og_url', url()->current())
-
 @section('content')
 
 <style>
@@ -61,9 +50,7 @@ $og_img = route('propiedades.imagenes.ver', $imagenes[0]->id);
         border-radius: 5px;
         transition: transform 0.3s ease-in-out;
     }
-</style>
-<style>
-    /* From Uiverse.io by david-mohseni */
+    
     .wrapper {
         display: inline-flex;
         list-style: none;
@@ -111,15 +98,6 @@ $n_i = $n_360 = 1;
 @endphp
 <section class="space-top space-extra-bottom arrow-wrap">
     <div class="container">
-        <!-- From Uiverse.io by david-mohseni -->
-        @role('admin')
-        <ul class="wrapper">
-            <a href="{{ $shareLinks['facebook'] }}" target="_blank" class="icon facebook" style="background: #1877f2">
-                <img alt="facebook sharing" src="https://platform-cdn.sharethis.com/img/facebook.svg">
-            </a>
-        </ul>
-        @endrole
-
         <div class="slider-area property-slider1">
             <div class="swiper th-slider mb-4 swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden"
                 id="propertySlider"

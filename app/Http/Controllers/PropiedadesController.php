@@ -41,14 +41,6 @@ class PropiedadesController extends Controller
         $propiedad = Propiedades::with('tipoPropiedad')->findOrFail($id);
         //Contar visitas
         $ip = $request->ip();
-        $url = url("/propiedades/detalle/{$propiedad->id}");
-        $title = 'Hola mundo';
-        $price = number_format($propiedad->precio, 2);
-        $message = "🏡 ¡Mira esta propiedad en venta! {$title} por \${$price}. Más detalles aquí: ";
-
-        $shareLinks = [
-            'facebook' => "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url),
-        ];
         // Registrar visita
         Visita::registrarVisita($id, $ip);
         return view('web.home.propiedades_detalle', [
@@ -56,7 +48,6 @@ class PropiedadesController extends Controller
             'imagenes' => $imagenes,
             'imagen360' => $imagen360,
             'imagenCasa' => $imagenCasa,
-            'shareLinks' => $shareLinks
         ]);
     }
 

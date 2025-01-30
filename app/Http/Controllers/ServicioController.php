@@ -41,7 +41,8 @@ class ServicioController extends Controller
         }
         $usuarios = User::with('client')->where('rol', 'cliente')->get();
         $tipoServicio = ServiciosTipo::all();
-        return view('admin::servicios.agregar', ['usuarios' => $usuarios, 'tipoServicio' => $tipoServicio, 'propiedadID' => $item]);
+        $servicios = Servicio::with(['usuario.client', 'tipoServicio'])->where('id_propiedad', $id)->get();
+        return view('admin::servicios.agregar', ['usuarios' => $usuarios, 'tipoServicio' => $tipoServicio, 'propiedadID' => $item, 'servicios' => $servicios]);
     }
 
     public function seguimiento($id)
@@ -58,13 +59,17 @@ class ServicioController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $servicios_detalle = implode('|', $request->servicios_detalle);
-        $data = $validator->validated();
-        $data['servicios_detalle'] = $servicios_detalle;
-        Servicio::create($data);
-
-        return redirect()->route('adm.servicios.agregar', $request->id_propiedad)
-            ->with('success', 'Servicio guardado exitosamente.');
+        try {
+            $servicios_detalle = implode('|', $request->servicios_detalle);
+            $data = $validator->validated();
+            $data['servicios_detalle'] = $servicios_detalle;
+            Servicio::create($data);
+            //$propiedad = Propiedades::findOrFail($request->id_propiedad);
+    
+            return back()->with('success', 'Servicio guardado exitosamente.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Ocurrio un error, vuelve a intentarlo '. $th->getMessage());
+        }
     }
 
     public function store_imagen_servicio(Request $request)
@@ -166,14 +171,21 @@ class ServicioController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $servicio = Servicio::findOrFail($request->id);
-        $servicios_detalle = implode('|', $request->servicios_detalle);
-        $servicio->fill($validator->validated());
-        $servicio->servicios_detalle = $servicios_detalle;
-        $servicio->save(); // Guardar los cambios
-
-        return redirect()->route('adm.servicios.editar', $request->id)
+        
+        
+        try {
+            
+            $servicio = Servicio::findOrFail($request->id);
+            $servicios_detalle = implode('|', $request->servicios_detalle);
+            $servicio->fill($validator->validated());
+            $servicio->servicios_detalle = $servicios_detalle;
+            $servicio->save(); // Guardar los cambios
+            
+            return redirect()->route('adm.servicios.agregar', $servicio->id_propiedad)
             ->with('success', 'Servicio actualizado exitosamente.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Ocurrio un error, vuelve a intentarlo '. $th->getMessage());
+        }
     }
 
     public function show($id)
